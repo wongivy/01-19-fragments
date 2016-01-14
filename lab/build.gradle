@@ -1,0 +1,24 @@
+apply plugin: 'java'
+apply plugin: 'application'
+
+//specify main class
+mainClassName = "movies.MovieDownloader"
+//mainClassName = "movies.ThreadDemo"
+
+
+run {
+  standardInput = System.in
+}
+
+repositories {
+    mavenCentral()
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+	compile 'org.json:json:20151123'
+  compile 'org.slf4j:slf4j-api:1.7.12'
+}
