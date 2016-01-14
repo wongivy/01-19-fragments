@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="edu.uw.listdatademo.InputControlActivity">
+
+    <Button
+        android:id="@+id/btnSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Search"
+        android:drawableLeft="@android:drawable/ic_menu_search"
+        />
+
+    <EditText
+        android:id="@+id/txtSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/btnSearch"
+        android:layout_alignBottom="@id/btnSearch"
+        android:layout_centerHorizontal="true"
+        android:hint="Enter a search term..."
+        />
+
+    <CheckBox
+        android:id="@+id/checkbox_dog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dogs"
+        android:layout_below="@id/btnSearch"
+        android:layout_marginTop="10dp"
+        />
+    <CheckBox
+        android:id="@+id/checkbox_cat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cats"
+        android:layout_below="@id/checkbox_dog"
+        />
+    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/radioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_toRightOf="@id/checkbox_dog"
+        android:layout_alignBottom="@id/checkbox_cat"
+        android:layout_marginLeft="20dp"
+        >
+        <RadioButton
+            android:id="@+id/radio_pirates"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pirates"
+            />
+        <RadioButton
+            android:id="@+id/radio_ninjas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ninjas"
+            />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/toggleLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/radioGroup"
+        android:text="Toggles"
+        android:textSize="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
+        />
+    <ToggleButton
+        android:id="@+id/toggleButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/toggleLabel"
+        android:layout_alignBaseline="@id/toggleLabel"
+        android:text="Toggle"
+        />
+
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/toggleButton"
+        android:layout_alignBaseline="@id/toggleLabel"
+        android:layout_marginLeft="20dp"
+        />
+
+    <Spinner
+        android:id="@+id/robot_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toggleLabel"
+        android:entries="@array/robot_array"
+        />
+
+</RelativeLayout>

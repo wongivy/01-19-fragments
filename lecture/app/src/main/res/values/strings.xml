@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">List &amp; Data Demo</string>
+    <string-array name="robot_array">
+        <item>Select a robot...</item>
+        <item>R2-D2</item>
+        <item>BB-8</item>
+        <item>C-3PO</item>
+        <item>Dalek</item>
+        <item>Robbie</item>
+        <item>Gort</item>
+        <item>Optimus Prime</item>
+    </string-array>
+</resources>
