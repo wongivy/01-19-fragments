@@ -17,7 +17,9 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class ListActivity extends AppCompatActivity {
 
@@ -35,22 +37,21 @@ public class ListActivity extends AppCompatActivity {
             data[99-i] = i+ " bottles of beer on the wall";
         }
 
+        ArrayList<String> list = new ArrayList<String>(Arrays.asList(data)); //convert to ArrayList (so modifiable)
         //String[] data = downloadMovieData("Die Hard");
 
-
-        MovieDownloadTask task = new MovieDownloadTask();
-        task.execute("Die Hard");
 
 
         //controller
         adapter = new ArrayAdapter<String>(
-                this, R.layout.list_item, R.id.txtItem, data);
+                this, R.layout.list_item, R.id.txtItem, list);
 
         //support ListView or GridView
         AdapterView listView = (AdapterView)findViewById(R.id.listView);
         listView.setAdapter(adapter);
 
-
+        MovieDownloadTask task = new MovieDownloadTask();
+        task.execute("Die Hard");
 
     }
 
@@ -126,9 +127,11 @@ public class ListActivity extends AppCompatActivity {
 
         protected void onPostExecute(String[] movies){
 
-            adapter.clear();
-            for(String movie : movies){
-                adapter.add(movie);
+            if(movies != null) {
+                adapter.clear();
+                for (String movie : movies) {
+                    adapter.add(movie);
+                }
             }
 
         }
