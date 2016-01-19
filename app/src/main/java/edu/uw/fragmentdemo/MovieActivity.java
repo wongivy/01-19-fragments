@@ -1,5 +1,7 @@
 package edu.uw.fragmentdemo;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -30,5 +32,11 @@ public class MovieActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        FragmentManager manager = getFragmentManager();
+
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.add(R.id.container, new MovieFragment());
+        transaction.commit();
     }
 }

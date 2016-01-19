@@ -10,10 +10,4 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MovieActivity">
 
-    <fragment
-        android:name="edu.uw.fragmentdemo.MovieFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
-
 </FrameLayout>
