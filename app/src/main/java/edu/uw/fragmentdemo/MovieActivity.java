@@ -9,7 +9,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,18 +28,18 @@ public class MovieActivity extends AppCompatActivity {
 
     private static final String TAG = "MovieActivity";
 
-    private ArrayAdapter<Movie> adapter;
+    private ArrayAdapter<Movie> adapter; //adapter for list view
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list);
+        setContentView(R.layout.activity_main);
 
         Button searchButton = (Button)findViewById(R.id.btnSearch);
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i(TAG, "Searching...");
+                Log.i(TAG, "searching...");
 
                 MovieDownloadTask task = new MovieDownloadTask();
                 EditText searchBox = (EditText)findViewById(R.id.txtSearch);
@@ -49,6 +48,7 @@ public class MovieActivity extends AppCompatActivity {
             }
         });
 
+        /** List View **/
         //model (starts out empty)
         ArrayList<Movie> list = new ArrayList<Movie>();
 
@@ -59,8 +59,22 @@ public class MovieActivity extends AppCompatActivity {
         //support ListView or GridView
         AdapterView listView = (AdapterView)findViewById(R.id.listView);
         listView.setAdapter(adapter);
+
+        //respond to item clicking
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Movie movie = (Movie) parent.getItemAtPosition(position);
+                Log.i(TAG, "selected: " + movie.toString());
+
+            }
+        });
+
     }
 
+    /**
+     * A background task to search for movie data on OMDB
+     */
     public class MovieDownloadTask extends AsyncTask<String, Void, ArrayList<Movie>> {
 
         protected ArrayList<Movie> doInBackground(String... params){
@@ -105,13 +119,7 @@ public class MovieActivity extends AppCompatActivity {
                 }
                 String results = buffer.toString();
 
-                movies = parseMovieJSONData(results);
-//                results = results.replace("{\"Search\":[","");
-//                results = results.replace("]}","");
-//                results = results.replace("},", "},\n");
-//                Log.v("MovieActivity", results);
-//                String[] moviesStrings = results.split("\n");
-
+                movies = parseMovieJSONData(results); //convert JSON results into Movie objects
             }
             catch (IOException e) {
                 return null;
@@ -139,8 +147,10 @@ public class MovieActivity extends AppCompatActivity {
             }
         }
 
+        /**
+         * Parses a JSON-format String (from OMDB search results) into a list of Movie objects
+         */
         public ArrayList<Movie> parseMovieJSONData(String json){
-            Log.v(TAG, json);
             ArrayList<Movie> movies = new ArrayList<Movie>();
 
             try {
@@ -153,7 +163,6 @@ public class MovieActivity extends AppCompatActivity {
                     movie.imdbId = movieJsonObject.getString("imdbID"); //get imdb from object
                     movie.posterUrl = movieJsonObject.getString("Poster"); //get poster from object
 
-                    Log.i(TAG,movie.toString());
                     movies.add(movie);
                 }
             } catch (JSONException e) {
