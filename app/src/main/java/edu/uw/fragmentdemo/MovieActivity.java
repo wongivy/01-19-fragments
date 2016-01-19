@@ -1,5 +1,6 @@
 package edu.uw.fragmentdemo;
 
+import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.AsyncTask;
@@ -26,7 +27,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
-public class MovieActivity extends AppCompatActivity implements OnMovieSelectionListener{
+public class MovieActivity extends Activity implements OnMovieSelectionListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,10 +43,29 @@ public class MovieActivity extends AppCompatActivity implements OnMovieSelection
 
     @Override
     public void onMovieSelected(Movie movie) {
-        //swap the fragments
+        DetailFragment detail = new DetailFragment();
+
+        //Create a new bundle to store information about the movie to send to the DetailFragment
+        Bundle bundle = new Bundle();
+        bundle.putString("title", movie.toString());
+        bundle.putString("imbd", movie.imdbId);
+
+        //Set the detail fragument to use the created bundle
+        detail.setArguments(bundle);
+
+        //swap the fragments to display the details about the selected movie
         getFragmentManager().beginTransaction()
-                .replace(R.id.container, new DetailFragment())
+                .replace(R.id.container, detail)
+                .addToBackStack(null)
                 .commit()
                 ;
+    }
+
+    //What to do if backbutton is pressed
+    public void onBackPressed() {
+        if(getFragmentManager().getBackStackEntryCount() != 0)
+            getFragmentManager().popBackStack();
+        else
+            super.onBackPressed();
     }
 }
