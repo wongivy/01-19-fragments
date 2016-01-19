@@ -26,7 +26,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
-public class MovieActivity extends AppCompatActivity {
+public class MovieActivity extends AppCompatActivity implements OnMovieSelectionListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,5 +38,14 @@ public class MovieActivity extends AppCompatActivity {
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.add(R.id.container, new MovieFragment());
         transaction.commit();
+    }
+
+    @Override
+    public void onMovieSelected(Movie movie) {
+        //swap the fragments
+        getFragmentManager().beginTransaction()
+                .replace(R.id.container, new DetailFragment())
+                .commit()
+                ;
     }
 }

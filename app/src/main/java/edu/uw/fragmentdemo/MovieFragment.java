@@ -1,6 +1,7 @@
 package edu.uw.fragmentdemo;
 
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -34,11 +35,23 @@ import java.util.ArrayList;
 public class MovieFragment extends Fragment {
 
     private static final String TAG = "MovieActivity";
-
     private ArrayAdapter<Movie> adapter; //adapter for list view
+    private OnMovieSelectionListener callback;
 
     public MovieFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onAttach(Context context){
+        super.onAttach(context);
+
+        //Attempt to cast the activity to an OnMovieSelectionListener; throw an error if cannot
+        try {
+            callback = (OnMovieSelectionListener)context;
+        } catch (ClassCastException e){
+            throw new ClassCastException(context.toString() + " must implement OnMovieSelectionListener");
+        }
     }
 
     @Override
@@ -78,6 +91,9 @@ public class MovieFragment extends Fragment {
                 Movie movie = (Movie) parent.getItemAtPosition(position);
                 Log.i(TAG, "selected: " + movie.toString());
 
+                //Swap the fragments to show the detail
+                OnMovieSelectionListener activity = (OnMovieSelectionListener) getActivity();
+                activity.onMovieSelected(movie);
             }
         });
 
